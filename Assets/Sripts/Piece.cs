@@ -67,6 +67,7 @@ public class Piece : MonoBehaviour
     private void Lock()
     {
         board.Set(this);
+        board.ClearLines();
         board.SpawnPiece();
     }
     private void HardDrop()
