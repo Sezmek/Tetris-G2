@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,6 +13,7 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominos;
     public Vector3Int SpawnPositon;
     public Vector2Int boardSize = new Vector2Int(10, 20);
+    public TextMeshProUGUI textMeshPro;
 
     public RectInt Bounds
     {
@@ -34,7 +38,7 @@ public class Board : MonoBehaviour
     }
     public void SpawnPiece()
     {
-        int random = Random.Range(0, tetrominos.Length);
+        int random = UnityEngine.Random.Range(0, tetrominos.Length);
         TetrominoData data = tetrominos[random];
 
         activePiece.Initialize(this, SpawnPositon, data);
@@ -101,6 +105,7 @@ public class Board : MonoBehaviour
             Vector3Int position = new Vector3Int(col, row, 0);
             tilemap.SetTile(position, null);
         }
+        textMeshPro.text = (Convert.ToInt32(textMeshPro.text) + 100).ToString();
 
         while ( row < bounds.yMax )
         {
