@@ -12,7 +12,7 @@ public class Board : MonoBehaviour
     public Piece activePiece { get; private set; }
     public TetrominoData[] tetrominos;
     public Vector3Int SpawnPositon;
-    public Vector2Int boardSize = new Vector2Int(10, 20);
+    public Vector2Int boardSize = new Vector2Int(20, 20);
     public TextMeshProUGUI textMeshPro;
 
     public RectInt Bounds
@@ -43,6 +43,33 @@ public class Board : MonoBehaviour
 
         activePiece.Initialize(this, SpawnPositon, data);
         Set(activePiece);
+    }
+    public void AndroidMove(int dir)
+    {
+        if (dir == -1)
+        {
+            activePiece.AndroidMove(Vector2Int.left);
+        }
+        else if (dir == 1)
+        {
+            activePiece.AndroidMove(Vector2Int.right);
+        }
+        else if (dir == 2)
+        {
+            activePiece.AndroidMove(Vector2Int.down);
+        }
+        else if (dir == 3)
+        {
+            Clear(activePiece);
+            activePiece.HardDrop();
+            Set(activePiece);
+        }
+        else if (dir == 4)
+        {
+            Clear(activePiece);
+            activePiece.Rotation(1);
+            Set(activePiece);
+        }
     }
 
     public void Set(Piece piece)

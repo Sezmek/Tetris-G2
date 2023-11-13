@@ -40,18 +40,24 @@ public class Piece : MonoBehaviour
     {
         lockTime += Time.deltaTime;
         board.Clear(this);
-        if (Input.GetKeyDown(KeyCode.Q)) Rotation(-1);
-        else if (Input.GetKeyDown(KeyCode.E)) Rotation(1);
+        //if (Input.GetKeyDown(KeyCode.Q)) Rotation(-1);
+        //else if (Input.GetKeyDown(KeyCode.E)) Rotation(1);
 
-        if (Input.GetKeyDown(KeyCode.A)) Move(Vector2Int.left);
-        else if (Input.GetKeyDown(KeyCode.D)) Move(Vector2Int.right);
+        //if (Input.GetKeyDown(KeyCode.A)) Move(Vector2Int.left);
+        //else if (Input.GetKeyDown(KeyCode.D)) Move(Vector2Int.right);
 
-        if (Input.GetKeyDown(KeyCode.S)) Move(Vector2Int.down);
+        //if (Input.GetKeyDown(KeyCode.S)) Move(Vector2Int.down);
 
         if (Input.GetKeyDown(KeyCode.Space)) HardDrop();
 
         if (Time.time >= stepTime) Step();
 
+        board.Set(this);
+    }
+    public void AndroidMove(Vector2Int Dir) 
+    {
+        board.Clear(this);
+        Move(Dir);
         board.Set(this);
     }
 
@@ -70,7 +76,7 @@ public class Piece : MonoBehaviour
         board.ClearLines();
         board.SpawnPiece();
     }
-    private void HardDrop()
+    public void HardDrop()
     {
         while (Move(Vector2Int.down)) continue;
         Lock();
@@ -90,7 +96,7 @@ public class Piece : MonoBehaviour
         }
         return valid;
     }
-    private void Rotation(int direction)
+    public void Rotation(int direction)
     {
         int orginalRotation = rotationIndex;
         rotationIndex += Wrap(rotationIndex + direction, 0, 4);
