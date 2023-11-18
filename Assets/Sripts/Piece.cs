@@ -81,6 +81,8 @@ public class Piece : MonoBehaviour
             {
                 board.TheEnd = true;
                 board.End.enabled = true;
+                board.SaveScore();
+                break;
             }
         }
         board.Set(this);

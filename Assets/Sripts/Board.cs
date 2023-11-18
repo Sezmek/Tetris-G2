@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -152,6 +154,23 @@ public class Board : MonoBehaviour
             }
             
             row++;
+        }
+    }
+    public void SaveScore()
+    {
+        string destination = "E:\\unity\\Tetris\\data.txt";
+
+        if (!File.Exists(destination))
+        {
+            File.Create(destination).Close();
+        }
+
+        using (FileStream fs = new FileStream(destination, FileMode.Append, FileAccess.Write, FileShare.Read))
+        {
+            using (StreamWriter sr = new StreamWriter(fs))
+            {
+                sr.WriteLine(textMeshPro.text + " " + DateTime.Now.ToString("yyyy-MM-dd"));
+            }
         }
     }
 }
