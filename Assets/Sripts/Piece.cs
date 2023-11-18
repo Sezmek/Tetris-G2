@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
@@ -72,8 +74,18 @@ public class Piece : MonoBehaviour
 
     private void Lock()
     {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            Vector3Int tilePosition = cells[i] + position;
+            if (tilePosition.y == 9)
+            {
+                board.TheEnd = true;
+                board.End.enabled = true;
+            }
+        }
         board.Set(this);
         board.ClearLines();
+        if (!board.TheEnd)
         board.SpawnPiece();
     }
     public void HardDrop()
